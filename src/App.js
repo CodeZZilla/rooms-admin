@@ -9,6 +9,9 @@ import Kanban from "./pages/Kanban/Kanban";
 import Login from "./pages/Login/Login";
 import AuthComponent from "./components/AuthComponent/AuthComponent";
 import Container from "./hoc/container/Container";
+import News from "./pages/News/News";
+import AddNews from "./pages/AddNews/AddNews";
+import EditNews from "./pages/EditNews/EditNews";
 
 function App() {
 
@@ -22,9 +25,12 @@ function App() {
                         <Route exact path="/" component={Home}/>
                         <Route path="/users" component={Users}/>
                         <Route exact path="/groups" component={Groups}/>
-                        <Route  path="/groups/add" component={AddGroup}/>
-                        <Route  path="/groupsView/:id" component={ViewGroup}/>
+                        <Route path="/groups/add" component={AddGroup}/>
+                        <Route path="/groupsView/:id" component={ViewGroup}/>
                         <Route path="/kanban" component={Kanban}/>
+                        <Route path="/news" component={News}/>
+                        <Route path="/addNews" component={AddNews}/>
+                        <Route path="/editNews/:id" component={EditNews}/>
                     </Container>
                 </AuthComponent>
             </Switch>

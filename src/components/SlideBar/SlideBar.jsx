@@ -19,21 +19,31 @@ export default function SlideBar() {
             sidebar[1].classList.remove('active');
             sidebar[2].classList.remove('active');
             sidebar[3].classList.remove('active');
+            sidebar[4].classList.remove('active');
         } else if (window.location.pathname === '/users') {
             sidebar[1].classList.add('active');
             sidebar[0].classList.remove('active');
             sidebar[2].classList.remove('active');
             sidebar[3].classList.remove('active');
+            sidebar[4].classList.remove('active');
         } else if (window.location.pathname === '/groups') {
             sidebar[2].classList.add('active');
             sidebar[0].classList.remove('active');
             sidebar[1].classList.remove('active');
             sidebar[3].classList.remove('active');
+            sidebar[4].classList.remove('active');
         } else if (window.location.pathname === '/kanban') {
             sidebar[3].classList.add('active');
             sidebar[0].classList.remove('active');
             sidebar[1].classList.remove('active');
             sidebar[2].classList.remove('active');
+            sidebar[4].classList.remove('active');
+        } else if (window.location.pathname === '/news') {
+            sidebar[4].classList.add('active');
+            sidebar[3].classList.remove('active');
+            sidebar[2].classList.remove('active');
+            sidebar[1].classList.remove('active');
+            sidebar[0].classList.remove("active");
         }
     }
 
@@ -55,8 +65,7 @@ export default function SlideBar() {
                 </div>
                 <div className="sidebar-menu">
                     <ul className="menu">
-                        <li className="sidebar-title">Меню</li>
-                        {/*className="sidebar-item active"*/}
+                        <li className="sidebar-title">Керування ботом</li>
                         <li className='sidebar-item' onClick={currentRoute}>
                             <Link className='sidebar-link' to="/">
                                 <i className="bi bi-grid-fill"/>
@@ -83,6 +92,14 @@ export default function SlideBar() {
                             <Link to="/kanban" className='sidebar-link'>
                                 <i className="bi bi-calendar"/>
                                 <span>Канбан</span>
+                            </Link>
+                        </li>
+
+                        <li className="sidebar-title">Керування сайтом</li>
+                        <li className="sidebar-item" onClick={currentRoute}>
+                            <Link to="/news" className='sidebar-link'>
+                                <i className="bi bi-newspaper"/>
+                                <span>Новини</span>
                             </Link>
                         </li>
 

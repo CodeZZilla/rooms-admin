@@ -4,9 +4,7 @@ import {BarWave} from 'react-cssfx-loading'
 import UserService from '../../services/user.service'
 
 
-export default function Home() {
-
-
+function Home() {
 
     const [dataStatistic, setDataStatistic] = useState([]);
     const [stagesStopped, setStagesStopped] = useState([]);
@@ -97,6 +95,7 @@ export default function Home() {
         })
 
     }, []);
+
 
     return (
         <>
@@ -344,3 +343,5 @@ export default function Home() {
 
     )
 }
+
+export default Home;
