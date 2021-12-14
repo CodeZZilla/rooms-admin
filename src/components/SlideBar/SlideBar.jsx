@@ -1,5 +1,6 @@
 import {Link} from "react-router-dom";
 import {useEffect} from "react";
+import logo from '../../bg/logo.png';
 
 export default function SlideBar() {
 
@@ -34,10 +35,10 @@ export default function SlideBar() {
             sidebar[4].classList.remove('active');
         } else if (window.location.pathname === '/kanban') {
             sidebar[3].classList.add('active');
+            sidebar[4].classList.remove('active');
             sidebar[0].classList.remove('active');
             sidebar[1].classList.remove('active');
             sidebar[2].classList.remove('active');
-            sidebar[4].classList.remove('active');
         } else if (window.location.pathname === '/news') {
             sidebar[4].classList.add('active');
             sidebar[3].classList.remove('active');
@@ -45,6 +46,14 @@ export default function SlideBar() {
             sidebar[1].classList.remove('active');
             sidebar[0].classList.remove("active");
         }
+        // } else if (window.location.pathname === '/chat') {
+        //     sidebar[3].classList.add('active');
+        //     sidebar[0].classList.remove('active');
+        //     sidebar[1].classList.remove('active');
+        //     sidebar[2].classList.remove('active');
+        //     sidebar[4].classList.remove('active');
+        //     sidebar[5].classList.remove('active');
+        // }
     }
 
     return (
@@ -54,7 +63,7 @@ export default function SlideBar() {
                     <div className="d-flex justify-content-between">
                         <div className="logo">
                             <Link to="/">
-                                <img src="assets/images/logo/logo.png" alt="Logo" srcSet=""/>
+                                <img src={logo} alt="Logo" srcSet=""/>
                             </Link>
                         </div>
                         <div className="toggler">
@@ -87,6 +96,13 @@ export default function SlideBar() {
                                 <span>Групи</span>
                             </Link>
                         </li>
+
+                        {/*<li className="sidebar-item" onClick={currentRoute}>*/}
+                        {/*    <Link to="/chat" className='sidebar-link'>*/}
+                        {/*        <i className="bi bi-people-fill"/>*/}
+                        {/*        <span>Чат</span>*/}
+                        {/*    </Link>*/}
+                        {/*</li>*/}
 
                         <li className="sidebar-item" onClick={currentRoute}>
                             <Link to="/kanban" className='sidebar-link'>

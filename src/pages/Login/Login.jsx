@@ -1,6 +1,7 @@
 import './login.css'
 import {useState} from "react";
 import AuthService from "../../services/auth.service";
+import logo from '../../bg/logo.png';
 
 
 export default function Login(props) {
@@ -9,7 +10,6 @@ export default function Login(props) {
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
 
-    // const [redirect, setRedirect] = useState(null);
 
 
     function onChangeUsername(e) {
@@ -38,7 +38,7 @@ export default function Login(props) {
                 <div className="col-lg-5 col-12">
                     <div id="auth-left">
                         <div className="auth-logo">
-                            <img src="assets/images/logo/logo.png" alt="Logo" />
+                            <img src={logo} alt="Logo" />
                         </div>
                         <h1 className="auth-title">Система керуванням Rooms Bot.</h1>
                         <p className="auth-subtitle mb-5">Увійдіть у свій обліковий запис.</p>

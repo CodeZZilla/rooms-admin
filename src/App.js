@@ -12,6 +12,8 @@ import Container from "./hoc/container/Container";
 import News from "./pages/News/News";
 import AddNews from "./pages/AddNews/AddNews";
 import EditNews from "./pages/EditNews/EditNews";
+import Chat from "./pages/Chat/Chat";
+import ViewUser from "./pages/ViewUser/ViewUser";
 
 function App() {
 
@@ -28,9 +30,12 @@ function App() {
                         <Route path="/groups/add" component={AddGroup}/>
                         <Route path="/groupsView/:id" component={ViewGroup}/>
                         <Route path="/kanban" component={Kanban}/>
+                        <Route path="/viewUser/:id" component={ViewUser}/>
                         <Route path="/news" component={News}/>
                         <Route path="/addNews" component={AddNews}/>
                         <Route path="/editNews/:id" component={EditNews}/>
+                        {/*<Route path="/chat" component={Chat}/>*/}
+
                     </Container>
                 </AuthComponent>
             </Switch>

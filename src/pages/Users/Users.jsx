@@ -48,9 +48,9 @@ export default function Users() {
     };
 
 
-    const addHandlerButton = (e, value) => {
-        console.log(text);
-    };
+    // const addHandlerButton = (e, value) => {
+    //     console.log(text);
+    // };
 
     const sendButton = (e) => {
         e.preventDefault();
@@ -114,13 +114,13 @@ export default function Users() {
                                         }
                                     }
                                 },
-                                {
-                                    tooltip: '',
-                                    icon: 'add',
-                                    onClick: (evt, value) => {
-                                        addHandlerButton(evt, value)
-                                    }
-                                }
+                                // {
+                                //     tooltip: '',
+                                //     icon: 'add',
+                                //     onClick: (evt, value) => {
+                                //         addHandlerButton(evt, value)
+                                //     }
+                                // }
                             ]}/>
                         </div>
                     </div>
