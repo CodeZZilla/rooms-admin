@@ -30,6 +30,32 @@ class UserService {
         });
     }
 
+    updateUserById(id, user) {
+        return axios.put('/api/user/updateById/' + id, {
+            name: user.name,
+            lastName: user.lastName,
+            nickname: user.nickname,
+            savedApartments: user.savedApartments,
+            idTelegram: user.idTelegram,
+            daysOfSubscription: user.daysOfSubscription,
+            rooms: user.rooms,
+            userStatus: user.userStatus,
+            priceMin: user.priceMin,
+            priceMax: user.priceMax,
+            city: user.city,
+            region: user.region,
+            metroNames: user.metroNames,
+            todayCompilation: user.todayCompilation,
+            freeCounterSearch: user.freeCounterSearch,
+            type: user.type,
+            language: user.language,
+            email: user.email,
+            phoneNumber: user.phoneNumber
+        }, {
+            headers: authHeader()
+        });
+    }
+
     getUserById(id) {
         return axios.get('/api/user/byId/' + id, {
            headers: authHeader()

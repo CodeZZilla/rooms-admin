@@ -93,35 +93,67 @@ export default function Users() {
                     <div className="card">
                         <div className="card-body">
                             <ActionTable onSelectionChange={selectionHandler} title="Таблиця" data={dataUser}
-                                         options={{selection: true}} action={[
-                                {
-                                    tooltip: 'Видалити всіх вибраних юзерів',
-                                    icon: 'delete',
-                                    onClick: async (evt, selectedUsers) => {
-                                        if (window.confirm("Ви впевнені що хочете видалити юзерів")) {
-                                            await deleteUsers(selectedUsers.map(x => x.id))
-                                            let newUsers = []
-                                            Array.from(dataUser).map(item => {
-                                                let findUser = selectedUsers.find(el => el === item)
-                                                if (findUser === undefined) {
-                                                    newUsers.push(item)
-                                                }
-                                            })
-                                            setDataUser(newUsers);
-                                            toast.error("Юзери видалені", {
-                                                position: toast.POSITION.BOTTOM_RIGHT
-                                            });
-                                        }
-                                    }
-                                },
-                                // {
-                                //     tooltip: '',
-                                //     icon: 'add',
-                                //     onClick: (evt, value) => {
-                                //         addHandlerButton(evt, value)
-                                //     }
-                                // }
-                            ]}/>
+                                         options={{selection: true, actionsColumnIndex: -1}}
+                                         editable={{
+                                             onRowUpdate: (newData, oldData) => new Promise((resolve, reject) => {
+
+                                                     const dataUpdate = [...dataUser];
+                                                     const index = oldData.tableData.id;
+                                                     dataUpdate[index] = newData;
+                                                     UserService.getUserById(dataUpdate[index].id).then(response => {
+                                                        let user = response.data;
+                                                        user.idTelegram = dataUpdate[index].idTelegram;
+                                                        user.lastName = dataUpdate[index].surname;
+                                                        user.name = dataUpdate[index].name;
+                                                        user.daysOfSubscription = dataUpdate[index].lessDays;
+
+                                                        UserService.updateUserById(user.id, user).then(() => {
+                                                           setDataUser([...dataUpdate]);
+                                                        });
+                                                     });
+
+
+                                                     resolve();
+
+                                             }),
+                                         }}
+                                         action={[
+                                             {
+                                                 tooltip: 'Видалити всіх вибраних юзерів',
+                                                 icon: 'delete',
+                                                 onClick: async (evt, selectedUsers) => {
+                                                     if (window.confirm("Ви впевнені що хочете видалити юзерів")) {
+                                                         await deleteUsers(selectedUsers.map(x => x.id))
+                                                         let newUsers = []
+                                                         Array.from(dataUser).map(item => {
+                                                             let findUser = selectedUsers.find(el => el === item)
+                                                             if (findUser === undefined) {
+                                                                 newUsers.push(item)
+                                                             }
+                                                         })
+                                                         setDataUser(newUsers);
+                                                         toast.error("Юзери видалені", {
+                                                             position: toast.POSITION.BOTTOM_RIGHT
+                                                         });
+                                                     }
+                                                 }
+                                             },
+                                             // rowData => ({
+                                             //     icon: "error",
+                                             //     tooltip: "",
+                                             //     onClick: (event, data) => {
+                                             //
+                                             //     }
+                                             // })
+
+                                             // {
+                                             //     tooltip: '',
+                                             //     icon: 'add',
+                                             //     onClick: (evt, value) => {
+                                             //         addHandlerButton(evt, value)
+                                             //     }
+                                             // }
+                                         ]}/>
                         </div>
                     </div>
                 </section>
