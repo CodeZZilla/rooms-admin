@@ -35,7 +35,7 @@ export default function Groups() {
                 </div>
                 {
                     Array.from(groups).map((value) => {
-                        return <div className="col-lg-3 col-sm-6">
+                        return <div className="col-lg-3 col-sm-6" key={value.id}>
                             <div className="card-box bg-red">
                                 <div className="inner">
                                     <h3>Користувачів: {value.users === null ? 0 : value.users.length} </h3>

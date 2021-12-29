@@ -29,8 +29,10 @@ export default function Users() {
                 u.push({
                     id: response.data[i].id,
                     idTelegram: response.data[i].idTelegram,
+                    nickname: response.data[i].nickname,
                     surname: response.data[i].lastName,
                     name: response.data[i].name,
+                    phoneNumber: response.data[i].phoneNumber,
                     lessDays: response.data[i].daysOfSubscription,
                     date: dateString,
                     rooms: response.data[i].todayCompilation.length,

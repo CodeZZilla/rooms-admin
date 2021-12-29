@@ -35,8 +35,10 @@ export default function ViewGroup() {
                 u.push({
                     id: users[i].id,
                     idTelegram: users[i].idTelegram,
+                    nickname: users.data[i].nickname,
                     surname: users[i].lastName,
                     name: users[i].name,
+                    phoneNumber: users.data[i].phoneNumber,
                     lessDays: users[i].daysOfSubscription,
                     date: users[i].creationDate,
                     rooms: users[i].todayCompilation.length,

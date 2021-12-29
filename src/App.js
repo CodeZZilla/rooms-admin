@@ -12,7 +12,6 @@ import Container from "./hoc/container/Container";
 import News from "./pages/News/News";
 import AddNews from "./pages/AddNews/AddNews";
 import EditNews from "./pages/EditNews/EditNews";
-import Chat from "./pages/Chat/Chat";
 import ViewUser from "./pages/ViewUser/ViewUser";
 
 function App() {

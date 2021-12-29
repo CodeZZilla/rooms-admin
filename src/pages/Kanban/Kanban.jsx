@@ -50,7 +50,7 @@ export default function Kanban() {
 
                                                     {
                                                         Array.from(users).filter(item => item.userStatus === 0).map((value) => {
-                                                            return <div className="card mb-3 bg-light">
+                                                            return <div className="card mb-3 bg-light" key={value.id}>
                                                                 <div className="card-body p-3">
                                                                     <p>{value.idTelegram}</p>
                                                                     <p>{value.nickname}</p>
@@ -76,7 +76,7 @@ export default function Kanban() {
 
                                                     {
                                                         Array.from(users).filter(item => item.userStatus === 1).map((value) => {
-                                                            return <div className="card mb-3 bg-light">
+                                                            return <div className="card mb-3 bg-light" key={value.id}>
                                                                 <div className="card-body p-3">
                                                                     <p>{value.idTelegram}</p>
                                                                     <p>{value.nickname}</p>
@@ -102,7 +102,7 @@ export default function Kanban() {
 
                                                     {
                                                         Array.from(users).filter(item => item.userStatus === 2).map((value) => {
-                                                            return <div className="card mb-3 bg-light">
+                                                            return <div className="card mb-3 bg-light" key={value.id}>
                                                                 <div className="card-body p-3">
                                                                     <p>{value.idTelegram}</p>
                                                                     <p>{value.nickname}</p>
@@ -128,7 +128,7 @@ export default function Kanban() {
 
                                                     {
                                                         Array.from(users).filter(item => item.userStatus === 3).map((value) => {
-                                                            return <div className="card mb-3 bg-light">
+                                                            return <div className="card mb-3 bg-light" key={value.id}>
                                                                 <div className="card-body p-3">
                                                                     <p>{value.idTelegram}</p>
                                                                     <p>{value.nickname}</p>
@@ -161,7 +161,7 @@ export default function Kanban() {
                                                         <div className="card-body p-3">
                                                             {
                                                                 Array.from(users).filter(item => item.userStatus === 4).map((value) => {
-                                                                    return <div className="card mb-3 bg-light">
+                                                                    return <div className="card mb-3 bg-light" key={value.id}>
                                                                         <div className="card-body p-3">
                                                                             <p>{value.idTelegram}</p>
                                                                             <p>{value.nickname}</p>
@@ -190,7 +190,7 @@ export default function Kanban() {
                                                         <div className="card-body p-3">
                                                             {
                                                                 Array.from(users).filter(item => item.userStatus === 5).map((value) => {
-                                                                    return <div className="card mb-3 bg-light">
+                                                                    return <div className="card mb-3 bg-light" key={value.id}>
                                                                         <div className="card-body p-3">
                                                                             <p>{value.idTelegram}</p>
                                                                             <p>{value.nickname}</p>
@@ -217,7 +217,7 @@ export default function Kanban() {
 
                                                     {
                                                         Array.from(users).filter(item => item.userStatus === 6).map((value) => {
-                                                            return <div className="card mb-3 bg-light">
+                                                            return <div className="card mb-3 bg-light" key={value.id}>
                                                                 <div className="card-body p-3">
                                                                     <p>{value.idTelegram}</p>
                                                                     <p>{value.nickname}</p>
@@ -245,7 +245,7 @@ export default function Kanban() {
                                                         <div className="card-body p-3">
                                                             {
                                                                 Array.from(users).filter(item => item.userStatus === 7).map((value) => {
-                                                                    return <div className="card mb-3 bg-light">
+                                                                    return <div className="card mb-3 bg-light" key={value.id}>
                                                                         <div className="card-body p-3">
                                                                             <p>{value.idTelegram}</p>
                                                                             <p>{value.nickname}</p>

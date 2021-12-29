@@ -5,8 +5,10 @@ import {createTheme, MuiThemeProvider} from "@material-ui/core";
 export default function ActionTable(props) {
     const columns = [
         {title: 'ID Телеграму', field: 'idTelegram'},
+        {title: "nickname", field: 'nickname'},
         {title: 'Фамілія', field: 'surname'},
         {title: "Імя", field: 'name'},
+        {title: 'Номер', field: 'phoneNumber'},
         {title: "К-сть днів до оновлення підписки", field: 'lessDays'},
         {title: 'Дата регестрації', field: 'date'},
         {title: 'Отримано квартир', field: 'rooms'},
