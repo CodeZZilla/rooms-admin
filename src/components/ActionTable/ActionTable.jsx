@@ -29,7 +29,8 @@ export default function ActionTable(props) {
 
     return (
         <MuiThemeProvider theme={theme}>
-            <MaterialTable columns={columns} data={props.data} options={props.options} title={props.title} actions={props.action}
+            <MaterialTable columns={columns} data={props.data} options={props.options} title={props.title}
+                           actions={props.action}
                            editable={props.editable}
                            onSelectionChange={props.onSelectionChange}
                            localization={{

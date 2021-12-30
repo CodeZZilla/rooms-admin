@@ -19,7 +19,7 @@ export default function ViewGroup() {
     const [options, setOptions] = useState([]);
     const [flag, setFlag] = useState(false);
     const [allUsers, setAllUsers] = useState([]);
-    const [select, setSelect] = useState({value: options[0], options})
+    const [select, setSelect] = useState({value: options[0], options});
     const [isLoading, setIsLoading] = useState(true);
 
     let selectTable;
@@ -35,15 +35,15 @@ export default function ViewGroup() {
                 u.push({
                     id: users[i].id,
                     idTelegram: users[i].idTelegram,
-                    nickname: users.data[i].nickname,
+                    nickname: users[i].nickname,
                     surname: users[i].lastName,
                     name: users[i].name,
-                    phoneNumber: users.data[i].phoneNumber,
+                    phoneNumber: users[i].phoneNumber,
                     lessDays: users[i].daysOfSubscription,
                     date: users[i].creationDate,
                     rooms: users[i].todayCompilation.length,
                     stage: users[i].userStatus
-                })
+                });
             }
         }
         return u;
@@ -56,7 +56,7 @@ export default function ViewGroup() {
     useEffect(() => {
         GroupService.getIdGroup(idGroup).then(response => {
             setDataUserGroup(forUsers(response.data.users));
-            setGroup(response.data)
+            setGroup(response.data);
         });
         UserService.getUsers().then(response => {
             let select = [];
@@ -64,7 +64,7 @@ export default function ViewGroup() {
                 select.push({
                     value: item.id,
                     label: `${item.idTelegram} ${item.lastName === undefined ? "" : item.lastName} ${item.name}`
-                })
+                });
             }
 
             setAllUsers(response.data);
@@ -73,7 +73,7 @@ export default function ViewGroup() {
         });
 
 
-    }, [])
+    }, [idGroup]);
 
 
     const deleteGroup = () => {

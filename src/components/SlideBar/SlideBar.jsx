@@ -1,5 +1,5 @@
-import {Link} from "react-router-dom";
-import {useEffect} from "react";
+import {Link, useLocation, useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
 import logo from '../../bg/logo.png';
 
 export default function SlideBar() {
@@ -8,53 +8,12 @@ export default function SlideBar() {
         document.getElementById('sidebar').classList.toggle('active')
     }
 
+    const [active, setActive] = useState('/');
+    const location = useLocation();
+
     useEffect(() => {
-        currentRoute();
-    }, [])
-
-
-    const currentRoute = () => {
-        const sidebar = document.getElementsByClassName('sidebar-item');
-        if (window.location.pathname === '/') {
-            sidebar[0].classList.add('active');
-            sidebar[1].classList.remove('active');
-            sidebar[2].classList.remove('active');
-            sidebar[3].classList.remove('active');
-            sidebar[4].classList.remove('active');
-        } else if (window.location.pathname === '/users') {
-            sidebar[1].classList.add('active');
-            sidebar[0].classList.remove('active');
-            sidebar[2].classList.remove('active');
-            sidebar[3].classList.remove('active');
-            sidebar[4].classList.remove('active');
-        } else if (window.location.pathname === '/groups') {
-            sidebar[2].classList.add('active');
-            sidebar[0].classList.remove('active');
-            sidebar[1].classList.remove('active');
-            sidebar[3].classList.remove('active');
-            sidebar[4].classList.remove('active');
-        } else if (window.location.pathname === '/kanban') {
-            sidebar[3].classList.add('active');
-            sidebar[4].classList.remove('active');
-            sidebar[0].classList.remove('active');
-            sidebar[1].classList.remove('active');
-            sidebar[2].classList.remove('active');
-        } else if (window.location.pathname === '/news') {
-            sidebar[4].classList.add('active');
-            sidebar[3].classList.remove('active');
-            sidebar[2].classList.remove('active');
-            sidebar[1].classList.remove('active');
-            sidebar[0].classList.remove("active");
-        }
-        // } else if (window.location.pathname === '/chat') {
-        //     sidebar[3].classList.add('active');
-        //     sidebar[0].classList.remove('active');
-        //     sidebar[1].classList.remove('active');
-        //     sidebar[2].classList.remove('active');
-        //     sidebar[4].classList.remove('active');
-        //     sidebar[5].classList.remove('active');
-        // }
-    }
+        setActive(location.pathname);
+    }, [location]);
 
     return (
         <div id="sidebar" className="active">
@@ -75,7 +34,7 @@ export default function SlideBar() {
                 <div className="sidebar-menu">
                     <ul className="menu">
                         <li className="sidebar-title">Керування ботом</li>
-                        <li className='sidebar-item' onClick={currentRoute}>
+                        <li className={'sidebar-item ' + (active === '/' ? 'active' : null)}>
                             <Link className='sidebar-link' to="/">
                                 <i className="bi bi-grid-fill"/>
                                 <span>Головна</span>
@@ -83,14 +42,15 @@ export default function SlideBar() {
 
                         </li>
 
-                        <li className="sidebar-item" onClick={currentRoute}>
+                        <li className={'sidebar-item ' + (active === '/users' ? 'active': null)}>
                             <Link to="/users" className='sidebar-link'>
                                 <i className="bi bi-file-earmark-spreadsheet-fill"/>
                                 <span>Користувачі</span>
                             </Link>
                         </li>
 
-                        <li className="sidebar-item" onClick={currentRoute}>
+                        <li className={'sidebar-item ' + (active === '/groups' || active === '/groups/add' || active === `/groupsView/${location.pathname.slice(12)}`
+                            ? 'active' : null)}>
                             <Link to="/groups" className='sidebar-link'>
                                 <i className="bi bi-people-fill"/>
                                 <span>Групи</span>
@@ -104,7 +64,7 @@ export default function SlideBar() {
                         {/*    </Link>*/}
                         {/*</li>*/}
 
-                        <li className="sidebar-item" onClick={currentRoute}>
+                        <li className={'sidebar-item ' + (active === '/kanban' ? 'active' : null)}>
                             <Link to="/kanban" className='sidebar-link'>
                                 <i className="bi bi-calendar"/>
                                 <span>Канбан</span>
@@ -112,7 +72,7 @@ export default function SlideBar() {
                         </li>
 
                         <li className="sidebar-title">Керування сайтом</li>
-                        <li className="sidebar-item" onClick={currentRoute}>
+                        <li className={'sidebar-item ' + (active === '/news' ? 'active' : null)}>
                             <Link to="/news" className='sidebar-link'>
                                 <i className="bi bi-newspaper"/>
                                 <span>Новини</span>
