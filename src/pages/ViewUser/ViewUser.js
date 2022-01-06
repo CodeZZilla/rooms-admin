@@ -1,5 +1,5 @@
 import './viewUser.css';
-import {useParams} from "react-router-dom";
+import {Redirect, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import UserService from "../../services/user.service";
 import {BarWave} from "react-cssfx-loading";
@@ -11,6 +11,7 @@ export default function ViewUser() {
 
     const [user, setUser] = useState({});
     const [isLoading, setIsLoading] = useState(true);
+    const [redirectLoginPage, setRedirectLoginPage] = useState(false);
 
     const date = new Date(user.creationDate);
     const dateString = ("0" + date.getDate()).slice(-2) + "/" + ("0" + (date.getMonth() + 1)).slice(-2) + "/" + date.getFullYear() + " "
@@ -20,8 +21,14 @@ export default function ViewUser() {
         UserService.getUserById(idUser).then(response => {
             setUser(response.data);
             setIsLoading(false);
+        }).catch(err => {
+            if (err.response.status === 401)
+                setRedirectLoginPage(true);
         });
-    }, []);
+    }, [idUser]);
+
+    if (redirectLoginPage)
+        return <Redirect to="/login"/>
 
     return (
        isLoading ? <BarWave className="loaderBar"/> : <div className="container bootdey flex-grow-1 container-p-y">

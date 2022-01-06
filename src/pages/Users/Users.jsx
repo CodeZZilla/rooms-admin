@@ -5,11 +5,13 @@ import UserService from "../../services/user.service";
 import {toast, ToastContainer} from "react-toastify";
 import {injectStyle} from "react-toastify/dist/inject-style";
 import MessageService from "../../services/message.service";
+import {Redirect} from "react-router-dom";
 
 export default function Users() {
 
     const [isLoading, setIsLoading] = useState(true);
     const [dataUser, setDataUser] = useState([]);
+    const [redirectLoginPage, setRedirectLoginPage] = useState(false);
     const [text, setText] = useState("");
     let select;
 
@@ -41,12 +43,18 @@ export default function Users() {
             }
             setDataUser(u)
             setIsLoading(false)
-        })
+        }).catch(err => {
+            if (err.response.status === 401)
+                setRedirectLoginPage(true);
+        });
 
     }, []);
 
     const deleteUsers = async (id) => {
-        await UserService.deleteUser(id);
+        await UserService.deleteUser(id).catch(err => {
+            if (err.response.status === 401)
+                setRedirectLoginPage(true);
+        });
     };
 
 
@@ -69,15 +77,19 @@ export default function Users() {
                 toast.info("Росилка надіслана", {
                     position: toast.POSITION.BOTTOM_RIGHT
                 })
+            }).catch(err => {
+                if (err.response.status === 401)
+                    setRedirectLoginPage(true);
             });
         }
-
-
     };
 
     const selectionHandler = (selected) => {
         select = selected;
     };
+
+    if (redirectLoginPage)
+        return <Redirect to="/login"/>
 
     return (
 

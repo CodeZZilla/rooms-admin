@@ -1,6 +1,7 @@
-import {Link, useLocation, useParams} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
-import logo from '../../bg/logo.png';
+import logo from '../../bg/ROOMSCUTLOGO.png';
+import './sideBar.css';
 
 export default function SlideBar() {
 
@@ -22,7 +23,7 @@ export default function SlideBar() {
                     <div className="d-flex justify-content-between">
                         <div className="logo">
                             <Link to="/">
-                                <img src={logo} alt="Logo" srcSet=""/>
+                                <img className="logo-rooms" src={logo} alt="Logo" srcSet=""/>
                             </Link>
                         </div>
                         <div className="toggler">
@@ -64,7 +65,7 @@ export default function SlideBar() {
                         {/*    </Link>*/}
                         {/*</li>*/}
 
-                        <li className={'sidebar-item ' + (active === '/kanban' ? 'active' : null)}>
+                        <li className={'sidebar-item ' + (active === '/kanban' || active === `/viewUser/${location.pathname.slice(10)}` ? 'active' : null)}>
                             <Link to="/kanban" className='sidebar-link'>
                                 <i className="bi bi-calendar"/>
                                 <span>Канбан</span>

@@ -4,6 +4,7 @@ import {Redirect} from "react-router-dom";
 
 export default function AddNews() {
     const [redirect, setRedirect] = useState(false);
+    const [redirectLoginPage, setRedirectLoginPage] = useState(false);
 
     let title = "";
     let imageUrl = "";
@@ -14,12 +15,18 @@ export default function AddNews() {
         e.preventDefault();
         NewsService.addNews(title, link, imageUrl, text).then(() => {
             setRedirect(true);
+        }).catch(err => {
+            if (err.response.status === 401)
+                setRedirectLoginPage(true);
         });
     }
 
     if (redirect) {
         return <Redirect to="/news"/>
     }
+
+    if (redirectLoginPage)
+        return <Redirect to="/login"/>
 
     return (
        <div className="container">

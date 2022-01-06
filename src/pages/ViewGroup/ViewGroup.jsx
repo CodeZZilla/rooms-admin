@@ -14,6 +14,7 @@ export default function ViewGroup() {
     const params = useParams();
     const idGroup = params.id;
 
+    const [redirectLoginPage, setRedirectLoginPage] = useState(false);
     const [group, setGroup] = useState({});
     const [dataUserGroup, setDataUserGroup] = useState([]);
     const [options, setOptions] = useState([]);
@@ -57,7 +58,11 @@ export default function ViewGroup() {
         GroupService.getIdGroup(idGroup).then(response => {
             setDataUserGroup(forUsers(response.data.users));
             setGroup(response.data);
+        }).catch(err => {
+            if (err.response.status === 401)
+                setRedirectLoginPage(true);
         });
+
         UserService.getUsers().then(response => {
             let select = [];
             for (let item of response.data) {
@@ -70,6 +75,9 @@ export default function ViewGroup() {
             setAllUsers(response.data);
             setOptions(select);
             setIsLoading(false);
+        }).catch(err => {
+            if (err.response.status === 401)
+                setRedirectLoginPage(true);
         });
 
 
@@ -79,6 +87,9 @@ export default function ViewGroup() {
     const deleteGroup = () => {
         GroupService.deleteGroup(idGroup).then(() => {
             setFlag(true);
+        }).catch(err => {
+            if (err.response.status === 401)
+                setRedirectLoginPage(true);
         });
 
     }
@@ -90,6 +101,10 @@ export default function ViewGroup() {
 
         GroupService.updateGroup(idGroup, name, group.users).then(response => {
             setGroup(response.data);
+        }).catch(err => {
+            if (err.response.status) {
+                setRedirectLoginPage(true);
+            }
         });
 
         toast.info("Назву успішно зміннено", {
@@ -112,6 +127,9 @@ export default function ViewGroup() {
             setDataUserGroup(forUsers(response.data.users))
             setGroup(response.data)
             setSelect({value: null})
+        }).catch(err => {
+            if (err.response.status === 401)
+                setRedirectLoginPage(true);
         });
 
         toast.success("Юзери додані", {
@@ -147,6 +165,9 @@ export default function ViewGroup() {
         GroupService.updateGroup(idGroup, group.nameGroup, newUsers).then(response => {
             setDataUserGroup(forUsers(response.data.users))
             setGroup(response.data)
+        }).catch(err => {
+            if (err.response.status === 401)
+                setRedirectLoginPage(true);
         });
     }
 
@@ -163,16 +184,21 @@ export default function ViewGroup() {
                 toast.info("Росилка надіслана", {
                     position: toast.POSITION.BOTTOM_RIGHT
                 })
+            }).catch(err => {
+                if (err.response.status === 401)
+                    setRedirectLoginPage(true);
             });
         }
 
 
     };
 
-
     if (flag) {
         return <Redirect to="/groups"/>;
     }
+
+    if (redirectLoginPage)
+        return <Redirect to='/login'/>
 
     return (
         isLoading ? <BarWave className="loaderBar"/> : <div className="page-heading">

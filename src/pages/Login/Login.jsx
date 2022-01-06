@@ -1,7 +1,7 @@
 import './login.css'
 import {useState} from "react";
 import AuthService from "../../services/auth.service";
-import logo from '../../bg/logo.png';
+import logo from '../../bg/ROOMSCUTLOGO.png';
 
 
 export default function Login(props) {
@@ -38,7 +38,7 @@ export default function Login(props) {
                 <div className="col-lg-5 col-12">
                     <div id="auth-left">
                         <div className="auth-logo">
-                            <img src={logo} alt="Logo" />
+                            <img className="logo-login-rooms" src={logo} alt="Logo" />
                         </div>
                         <h1 className="auth-title">Система керуванням Rooms Bot.</h1>
                         <p className="auth-subtitle mb-5">Увійдіть у свій обліковий запис.</p>

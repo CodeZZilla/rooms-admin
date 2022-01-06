@@ -9,6 +9,7 @@ export default function AddGroup() {
     const [options, setOptions] = useState([]);
     const [flag, setFlag] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [redirectLoginPage, setRedirectLoginPage] = useState(false);
     let selectedValues;
 
     useEffect(() => {
@@ -21,6 +22,9 @@ export default function AddGroup() {
                 })
             }
             setIsLoading(false);
+        }).catch(err => {
+            if (err.response.status === 401)
+                setRedirectLoginPage(true);
         });
         setOptions(u)
     }, [])
@@ -32,12 +36,18 @@ export default function AddGroup() {
 
         GroupService.addGroup(name, selectedValues).then(function () {
             setFlag(true);
+        }).catch(err => {
+            if (err.response.status === 401)
+                setRedirectLoginPage(true);
         });
     }
 
     if (flag) {
         return <Redirect to="/groups"/>
     }
+
+    if (redirectLoginPage)
+        return <Redirect to="/login"/>
 
     return (
            isLoading ? <BarWave className="loaderBar"/> : <section id="basic-horizontal-layouts">

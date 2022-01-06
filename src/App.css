@@ -919,9 +919,9 @@
     font-weight: 700
 }
 
-.sidebar-wrapper .sidebar-header img {
-    height: 1.2rem
-}
+/*.sidebar-wrapper .sidebar-header img {*/
+/*    height: 1.2rem*/
+/*}*/
 
 .sidebar-wrapper .sidebar-toggler.x {
     position: absolute;

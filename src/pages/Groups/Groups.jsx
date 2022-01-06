@@ -1,5 +1,5 @@
 import './groups.css'
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {BarWave} from "react-cssfx-loading";
 import GroupService from "../../services/group.service";
@@ -8,14 +8,21 @@ export default function Groups() {
 
     const [groups, setGroups] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [redirectLoginPage, setRedirectLoginPage] = useState(false);
 
     useEffect(() => {
         GroupService.getGroups().then(response => {
             setGroups(response.data)
             setIsLoading(false)
+        }).catch(err => {
+            if (err.response.status === 401)
+                setRedirectLoginPage(true);
         });
 
-    }, [])
+    }, []);
+
+    if (redirectLoginPage)
+        return <Redirect to="/login"/>
 
     return (
        isLoading ? <BarWave className="loaderBar"/> : <div className="container">

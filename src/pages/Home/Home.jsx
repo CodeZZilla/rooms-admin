@@ -1,10 +1,14 @@
-import Chart from 'react-apexcharts'
+import Chart from 'react-apexcharts';
 import {useEffect, useState} from "react";
-import {BarWave} from 'react-cssfx-loading'
-import UserService from '../../services/user.service'
+import {BarWave} from 'react-cssfx-loading';
+import UserService from '../../services/user.service';
+import {Redirect} from "react-router-dom";
+import logoMini from '../../bg/ROOMS EN Logo_Small Logo White.png';
 
 
 function Home() {
+
+    const [redirectLoginPage, setRedirectLoginPage] = useState(false);
 
     const [dataStatistic, setDataStatistic] = useState([]);
     const [stagesStopped, setStagesStopped] = useState([]);
@@ -63,6 +67,10 @@ function Home() {
 
         UserService.getDateStatistic().then(response => {
             setDataStatistic(response.data);
+        }).catch(error => {
+            if (error.response.status === 401) {
+                setRedirectLoginPage(true);
+            }
         });
 
         UserService.getStagesAtWhichClientsStopped().then(response => {
@@ -77,6 +85,9 @@ function Home() {
                 response.data.sixthStage,
                 response.data.seventhStage
             ])
+        }).catch(error => {
+            if (error.response.status === 401)
+                setRedirectLoginPage(true);
         });
 
         UserService.getDataForCharts().then(response => {
@@ -92,10 +103,15 @@ function Home() {
                 }
             ]);
             setIsLoading(false);
-        })
+        }).catch(error => {
+            if (error.response.status === 401)
+                setRedirectLoginPage(true);
+        });
 
     }, []);
 
+    if (redirectLoginPage)
+        return <Redirect to="/login"/>
 
     return (
         <>
@@ -211,7 +227,7 @@ function Home() {
                                         <div className="d-flex align-items-center">
                                             <div className="avatar avatar-xl">
                                                 <a href="https://t.me/rooms_rent_bot" target="_blank">
-                                                    <img src="assets/images/faces/1.jpg" alt="Face 1"/>
+                                                    <img src={logoMini} alt="Face 1"/>
                                                 </a>
                                             </div>
                                             <div className="ms-3 name">

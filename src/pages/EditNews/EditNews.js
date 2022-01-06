@@ -9,6 +9,7 @@ export default function EditNews() {
 
     const [isLoading, setIsLoading] = useState(true);
     const [redirect, setRedirect] = useState(false);
+    const [redirectLoginPage, setRedirectLoginPage] = useState(false);
     const [title, setTitle] = useState('');
     const [text, setText] = useState('');
     const [link, setLink] = useState('');
@@ -22,20 +23,29 @@ export default function EditNews() {
             setImageUrl(response.data.imageUrl);
 
             setIsLoading(false);
+        }).catch(err => {
+            if (err.response.status === 401)
+                setRedirectLoginPage(true);
         });
-    },[])
+    },[id])
 
 
     const saveSubmit = (e) => {
         e.preventDefault();
         NewsService.updateNews(id, title, link, imageUrl, text).then(() => {
             setRedirect(true);
+        }).catch(err => {
+            if (err.response.status === 401)
+                setRedirectLoginPage(true);
         });
     }
 
     if (redirect) {
         return <Redirect to="/news"/>
     }
+
+    if (redirectLoginPage)
+        return <Redirect to='/login'/>
 
     return (
         isLoading ? <BarWave className="loaderBar"/> : <div className="container">

@@ -2,6 +2,11 @@
 /*    background-color: #fff*/
 /*}*/
 
+.logo-login-rooms {
+    width: 400px;
+    height: 90px;
+}
+
 #auth {
     height: 100vh;
     overflow-x: hidden
@@ -31,9 +36,6 @@
     margin-bottom: 7rem
 }
 
-#auth #auth-left .auth-logo img {
-    height: 2rem
-}
 
 @media screen and (max-width: 767px) {
     #auth #auth-left {

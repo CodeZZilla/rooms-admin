@@ -2,19 +2,26 @@
 import {useEffect, useState} from "react";
 import UserService from "../../services/user.service";
 import {BarWave} from "react-cssfx-loading";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 
 export default function Kanban() {
 
     const [users, setUsers] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [redirectLoginPage, setRedirectLoginPage] = useState(false);
 
     useEffect(() => {
         UserService.getUsers().then(response => {
             setUsers(response.data);
             setIsLoading(false);
+        }).catch(err => {
+            if (err.response.status === 401)
+                setRedirectLoginPage(true);
         });
     }, []);
+
+    if (redirectLoginPage)
+        return <Redirect to="/login"/>
 
 
     return (

@@ -1,5 +1,5 @@
 import './news.css';
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import {useEffect, useState} from "react";
 import NewsService from "../../services/news.service";
 import {BarWave} from "react-cssfx-loading";
@@ -11,6 +11,7 @@ export default function News() {
 
     const [news, setNews] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [redirectLoginPage, setRedirectLoginPage] = useState(false);
 
     if (typeof window !== 'undefined') {
         injectStyle()
@@ -20,8 +21,14 @@ export default function News() {
         NewsService.getAll().then(response => {
             setNews(response.data);
             setIsLoading(false);
+        }).catch(err => {
+            if (err.response.status === 401)
+                setRedirectLoginPage(true);
         });
     }, [])
+
+    if (redirectLoginPage)
+        return <Redirect to="/login"/>
 
     const deleteNews = (e, id) => {
         e.preventDefault();

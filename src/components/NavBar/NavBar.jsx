@@ -1,7 +1,7 @@
 import AuthService from "../../services/auth.service";
 import Redirect from "react-router-dom/es/Redirect";
 import {useState} from "react";
-import r from '../../bg/1.jpg';
+import r from '../../bg/ROOMS EN Logo_Small Logo White.png';
 
 export default function NavBar() {
 
@@ -43,7 +43,7 @@ export default function NavBar() {
                                     </div>
                                     <div className="user-img d-flex align-items-center">
                                         <div className="avatar avatar-md">
-                                            <img src={r}/>
+                                            <img src={r} alt=""/>
                                         </div>
                                     </div>
                                 </div>
