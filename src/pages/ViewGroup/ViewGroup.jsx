@@ -8,6 +8,7 @@ import UserService from "../../services/user.service";
 import {toast, ToastContainer} from "react-toastify";
 import {injectStyle} from "react-toastify/dist/inject-style";
 import MessageService from "../../services/message.service";
+import {PhotoURL} from "../../services/PhotoURL";
 
 export default function ViewGroup() {
     const [selectedValues, setSelectedValues] = useState([]);
@@ -35,6 +36,11 @@ export default function ViewGroup() {
             for (let i = 0; i < users.length; i++) {
                 u.push({
                     id: users[i].id,
+                    Avatar:
+                        <img src={PhotoURL + users[i].idTelegram}
+                             alt=""
+                             style={{width: 50, borderRadius: '50%'}}/>
+                    ,
                     idTelegram: users[i].idTelegram,
                     nickname: users[i].nickname,
                     surname: users[i].lastName,

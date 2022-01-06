@@ -3,6 +3,8 @@ import {Redirect, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import UserService from "../../services/user.service";
 import {BarWave} from "react-cssfx-loading";
+import { PhotoURL} from "../../services/PhotoURL";
+import notFound from '../../bg/notFound.jpeg';
 
 export default function ViewUser() {
 
@@ -12,20 +14,35 @@ export default function ViewUser() {
     const [user, setUser] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [redirectLoginPage, setRedirectLoginPage] = useState(false);
+    const [photo, setPhoto] = useState("");
 
     const date = new Date(user.creationDate);
     const dateString = ("0" + date.getDate()).slice(-2) + "/" + ("0" + (date.getMonth() + 1)).slice(-2) + "/" + date.getFullYear() + " "
     + date.getHours() + ":" + date.getMinutes();
 
+
+
     useEffect(() => {
-        UserService.getUserById(idUser).then(response => {
-            setUser(response.data);
-            setIsLoading(false);
+        UserService.getUserById(idUser).then(responseUser => {
+            setUser(responseUser.data);
+            fetch(PhotoURL + responseUser.data.idTelegram).then(res => res.text()).then(data => {
+                if (data === "notFoundImage") {
+                    setPhoto(notFound);
+                } else
+                    setPhoto(PhotoURL + responseUser.data.idTelegram);
+
+                setIsLoading(false);
+            });
+
         }).catch(err => {
             if (err.response.status === 401)
                 setRedirectLoginPage(true);
         });
+
+
+
     }, [idUser]);
+
 
     if (redirectLoginPage)
         return <Redirect to="/login"/>
@@ -36,6 +53,8 @@ export default function ViewUser() {
             <div className="media align-items-center py-3 mb-3">
                 {/*<img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""*/}
                 {/*     className="d-block ui-w-100 rounded-circle"/>*/}
+                <img src={photo} alt=""
+                     className="d-block ui-w-100 rounded-circle"/>
                 <div className="media-body ml-4">
                     <h4 className="font-weight-bold mb-0">{user.name} {user.lastName} <span
                         className="text-muted font-weight-normal">@{user.nickname}</span></h4>

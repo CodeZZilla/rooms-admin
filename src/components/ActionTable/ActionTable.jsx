@@ -1,9 +1,13 @@
 import MaterialTable from "material-table";
 import '@material-ui/icons'
 import {createTheme, MuiThemeProvider} from "@material-ui/core";
+import {PhotoURL} from "../../services/PhotoURL";
 
 export default function ActionTable(props) {
     const columns = [
+        {
+            title: 'Photo', field: 'Avatar'
+        },
         {title: 'ID Телеграму', field: 'idTelegram'},
         {title: "nickname", field: 'nickname'},
         {title: 'Фамілія', field: 'surname'},

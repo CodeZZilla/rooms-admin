@@ -6,6 +6,7 @@ import {toast, ToastContainer} from "react-toastify";
 import {injectStyle} from "react-toastify/dist/inject-style";
 import MessageService from "../../services/message.service";
 import {Redirect} from "react-router-dom";
+import {PhotoURL} from "../../services/PhotoURL";
 
 export default function Users() {
 
@@ -30,6 +31,11 @@ export default function Users() {
 
                 u.push({
                     id: response.data[i].id,
+                    Avatar:
+                      <img src={PhotoURL + response.data[i].idTelegram}
+                                          alt=""
+                                          style={{width: 50, borderRadius: '50%'}}/>
+                    ,
                     idTelegram: response.data[i].idTelegram,
                     nickname: response.data[i].nickname,
                     surname: response.data[i].lastName,

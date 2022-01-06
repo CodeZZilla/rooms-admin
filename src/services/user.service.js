@@ -30,6 +30,12 @@ class UserService {
         });
     }
 
+    getUserPhoto(idTelegram) {
+        return axios.get('/api/user/getPhoto/' + idTelegram, {
+            headers: authHeader()
+        });
+    }
+
     updateUserById(id, user) {
         return axios.put('/api/user/updateById/' + id, {
             name: user.name,
