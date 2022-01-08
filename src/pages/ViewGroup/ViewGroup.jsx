@@ -36,11 +36,6 @@ export default function ViewGroup() {
             for (let i = 0; i < users.length; i++) {
                 u.push({
                     id: users[i].id,
-                    Avatar:
-                        <img src={PhotoURL + users[i].idTelegram}
-                             alt=""
-                             style={{width: 50, borderRadius: '50%'}}/>
-                    ,
                     idTelegram: users[i].idTelegram,
                     nickname: users[i].nickname,
                     surname: users[i].lastName,

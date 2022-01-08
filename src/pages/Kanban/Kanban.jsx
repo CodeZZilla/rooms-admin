@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import UserService from "../../services/user.service";
 import {BarWave} from "react-cssfx-loading";
 import {Link, Redirect} from "react-router-dom";
+import {PhotoURL} from "../../services/PhotoURL";
 
 export default function Kanban() {
 
@@ -59,9 +60,16 @@ export default function Kanban() {
                                                         Array.from(users).filter(item => item.userStatus === 0).map((value) => {
                                                             return <div className="card mb-3 bg-light" key={value.id}>
                                                                 <div className="card-body p-3">
+                                                                    <div className="float-right mt-n1">
+                                                                        <img
+                                                                            src={PhotoURL + value.idTelegram}
+                                                                            width="32" height="32"
+                                                                            className="rounded-circle" alt="Avatar"/>
+                                                                    </div>
                                                                     <p>{value.idTelegram}</p>
                                                                     <p>{value.nickname}</p>
                                                                     <p>{value.name} {value.lastName}</p>
+
                                                                     <Link
                                                                         className="btn btn-outline-primary btn-sm"
                                                                         to={"/viewUser/" + value.id}>Переглянути користувача</Link>
@@ -85,6 +93,12 @@ export default function Kanban() {
                                                         Array.from(users).filter(item => item.userStatus === 1).map((value) => {
                                                             return <div className="card mb-3 bg-light" key={value.id}>
                                                                 <div className="card-body p-3">
+                                                                    <div className="float-right mt-n1">
+                                                                        <img
+                                                                            src={PhotoURL + value.idTelegram}
+                                                                            width="32" height="32"
+                                                                            className="rounded-circle" alt="Avatar"/>
+                                                                    </div>
                                                                     <p>{value.idTelegram}</p>
                                                                     <p>{value.nickname}</p>
                                                                     <p>{value.name} {value.lastName}</p>
@@ -111,6 +125,12 @@ export default function Kanban() {
                                                         Array.from(users).filter(item => item.userStatus === 2).map((value) => {
                                                             return <div className="card mb-3 bg-light" key={value.id}>
                                                                 <div className="card-body p-3">
+                                                                    <div className="float-right mt-n1">
+                                                                        <img
+                                                                            src={PhotoURL + value.idTelegram}
+                                                                            width="32" height="32"
+                                                                            className="rounded-circle" alt="Avatar"/>
+                                                                    </div>
                                                                     <p>{value.idTelegram}</p>
                                                                     <p>{value.nickname}</p>
                                                                     <p>{value.name} {value.lastName}</p>
@@ -137,6 +157,12 @@ export default function Kanban() {
                                                         Array.from(users).filter(item => item.userStatus === 3).map((value) => {
                                                             return <div className="card mb-3 bg-light" key={value.id}>
                                                                 <div className="card-body p-3">
+                                                                    <div className="float-right mt-n1">
+                                                                        <img
+                                                                            src={PhotoURL + value.idTelegram}
+                                                                            width="32" height="32"
+                                                                            className="rounded-circle" alt="Avatar"/>
+                                                                    </div>
                                                                     <p>{value.idTelegram}</p>
                                                                     <p>{value.nickname}</p>
                                                                     <p>{value.name} {value.lastName}</p>
@@ -170,6 +196,12 @@ export default function Kanban() {
                                                                 Array.from(users).filter(item => item.userStatus === 4).map((value) => {
                                                                     return <div className="card mb-3 bg-light" key={value.id}>
                                                                         <div className="card-body p-3">
+                                                                            <div className="float-right mt-n1">
+                                                                                <img
+                                                                                    src={PhotoURL + value.idTelegram}
+                                                                                    width="32" height="32"
+                                                                                    className="rounded-circle" alt="Avatar"/>
+                                                                            </div>
                                                                             <p>{value.idTelegram}</p>
                                                                             <p>{value.nickname}</p>
                                                                             <p>{value.name} {value.lastName}</p>
@@ -199,6 +231,12 @@ export default function Kanban() {
                                                                 Array.from(users).filter(item => item.userStatus === 5).map((value) => {
                                                                     return <div className="card mb-3 bg-light" key={value.id}>
                                                                         <div className="card-body p-3">
+                                                                            <div className="float-right mt-n1">
+                                                                                <img
+                                                                                    src={PhotoURL + value.idTelegram}
+                                                                                    width="32" height="32"
+                                                                                    className="rounded-circle" alt="Avatar"/>
+                                                                            </div>
                                                                             <p>{value.idTelegram}</p>
                                                                             <p>{value.nickname}</p>
                                                                             <p>{value.name} {value.lastName}</p>
@@ -226,6 +264,12 @@ export default function Kanban() {
                                                         Array.from(users).filter(item => item.userStatus === 6).map((value) => {
                                                             return <div className="card mb-3 bg-light" key={value.id}>
                                                                 <div className="card-body p-3">
+                                                                    <div className="float-right mt-n1">
+                                                                        <img
+                                                                            src={PhotoURL + value.idTelegram}
+                                                                            width="32" height="32"
+                                                                            className="rounded-circle" alt="Avatar"/>
+                                                                    </div>
                                                                     <p>{value.idTelegram}</p>
                                                                     <p>{value.nickname}</p>
                                                                     <p>{value.name} {value.lastName}</p>
@@ -254,6 +298,12 @@ export default function Kanban() {
                                                                 Array.from(users).filter(item => item.userStatus === 7).map((value) => {
                                                                     return <div className="card mb-3 bg-light" key={value.id}>
                                                                         <div className="card-body p-3">
+                                                                            <div className="float-right mt-n1">
+                                                                                <img
+                                                                                    src={PhotoURL + value.idTelegram}
+                                                                                    width="32" height="32"
+                                                                                    className="rounded-circle" alt="Avatar"/>
+                                                                            </div>
                                                                             <p>{value.idTelegram}</p>
                                                                             <p>{value.nickname}</p>
                                                                             <p>{value.name} {value.lastName}</p>

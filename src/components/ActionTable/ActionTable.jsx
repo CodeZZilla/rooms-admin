@@ -6,7 +6,10 @@ import {PhotoURL} from "../../services/PhotoURL";
 export default function ActionTable(props) {
     const columns = [
         {
-            title: 'Photo', field: 'Avatar'
+            title: 'Photo', field: 'Avatar',
+            render: row => <img src={PhotoURL + row.idTelegram}
+                                alt=""
+                                style={{width: 50, borderRadius: '50%'}}/>
         },
         {title: 'ID Телеграму', field: 'idTelegram'},
         {title: "nickname", field: 'nickname'},
