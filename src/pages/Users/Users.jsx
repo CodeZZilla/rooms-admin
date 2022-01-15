@@ -6,14 +6,13 @@ import {toast, ToastContainer} from "react-toastify";
 import {injectStyle} from "react-toastify/dist/inject-style";
 import MessageService from "../../services/message.service";
 import {Redirect} from "react-router-dom";
-import {PhotoURL} from "../../services/PhotoURL";
 
 export default function Users() {
 
     const [isLoading, setIsLoading] = useState(true);
     const [dataUser, setDataUser] = useState([]);
     const [redirectLoginPage, setRedirectLoginPage] = useState(false);
-    const [text, setText] = useState("");
+    // const [text, setText] = useState("");
     let select;
 
     if (typeof window !== 'undefined') {
@@ -27,7 +26,6 @@ export default function Users() {
                 let date = new Date(response.data[i].creationDate);
                 let dateString = ("0" + date.getDate()).slice(-2) + "." + ("0" + (date.getMonth() + 1)).slice(-2) + "." +
                     date.getFullYear();
-
 
                 u.push({
                     id: response.data[i].id,
@@ -139,7 +137,7 @@ export default function Users() {
                                                  onClick: async (evt, selectedUsers) => {
                                                      if (window.confirm("Ви впевнені що хочете видалити юзерів")) {
                                                          await deleteUsers(selectedUsers.map(x => x.id))
-                                                         let newUsers = []
+                                                         let newUsers = [];
                                                          Array.from(dataUser).map(item => {
                                                              let findUser = selectedUsers.find(el => el === item)
                                                              if (findUser === undefined) {
