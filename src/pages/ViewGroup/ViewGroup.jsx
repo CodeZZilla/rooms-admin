@@ -180,13 +180,13 @@ export default function ViewGroup() {
             });
         } else {
             for await (let item of selectTable) {
-                try {
+                // try {
                     await TelegramService.sendMessage(item.idTelegram, text);
-                } catch (err) {
-                    return toast.error("Введите текст", {
-                        position: toast.POSITION.BOTTOM_RIGHT
-                    });
-                }
+                // } catch (err) {
+                //     return toast.error("Введите текст", {
+                //         position: toast.POSITION.BOTTOM_RIGHT
+                //     });
+                // }
             }
             document.getElementById('textArea').value = "";
             toast.info("Росилка надіслана", {
