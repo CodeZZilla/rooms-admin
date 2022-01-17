@@ -109,7 +109,15 @@ function Home() {
         });
 
     }, []);
-
+    // useInterval(() => {
+    //     UserService.getDateStatistic().then(response => {
+    //         setDataStatistic(response.data);
+    //     }).catch(error => {
+    //         if (error.response.status === 401) {
+    //             setRedirectLoginPage(true);
+    //         }
+    //     });
+    // }, 1000);
     if (redirectLoginPage)
         return <Redirect to="/login"/>
 

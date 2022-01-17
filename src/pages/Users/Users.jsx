@@ -2,9 +2,9 @@ import {useEffect, useState} from "react";
 import {BarWave} from "react-cssfx-loading";
 import ActionTable from "../../components/ActionTable/ActionTable";
 import UserService from "../../services/user.service";
+import TelegramService from '../../services/telegram.service';
 import {toast, ToastContainer} from "react-toastify";
 import {injectStyle} from "react-toastify/dist/inject-style";
-import MessageService from "../../services/message.service";
 import {Redirect} from "react-router-dom";
 
 export default function Users() {
@@ -56,29 +56,28 @@ export default function Users() {
         });
     };
 
-
-    // const addHandlerButton = (e, value) => {
-    //     console.log(text);
-    // };
-
-    const sendButton = (e) => {
+    const sendButton = async (e) => {
         e.preventDefault();
         const text = document.getElementById('textArea').value;
-        // console.log(select.map(x => x.idTelegram))
 
         if (select === undefined || select.length === 0) {
             toast.error('Виберіть юзерів', {
                 position: toast.POSITION.BOTTOM_RIGHT
             });
         } else {
-            MessageService.addMessage(select.map(x => x.idTelegram), text).then(() => {
-                document.getElementById('textArea').value = "";
-                toast.info("Росилка надіслана", {
-                    position: toast.POSITION.BOTTOM_RIGHT
-                })
-            }).catch(err => {
-                if (err.response.status === 401)
-                    setRedirectLoginPage(true);
+
+            for await (let item of select) {
+                try {
+                    await TelegramService.sendMessage(item.idTelegram, text);
+                } catch (err) {
+                     return toast.error("Введите текст", {
+                       position: toast.POSITION.BOTTOM_RIGHT
+                    });
+                }
+            }
+            document.getElementById('textArea').value = "";
+            toast.info("Росилка надіслана", {
+                position: toast.POSITION.BOTTOM_RIGHT
             });
         }
     };

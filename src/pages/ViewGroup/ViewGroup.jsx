@@ -7,8 +7,7 @@ import GroupService from "../../services/group.service";
 import UserService from "../../services/user.service";
 import {toast, ToastContainer} from "react-toastify";
 import {injectStyle} from "react-toastify/dist/inject-style";
-import MessageService from "../../services/message.service";
-import {PhotoURL} from "../../services/PhotoURL";
+import TelegramService from "../../services/telegram.service";
 
 export default function ViewGroup() {
     const [selectedValues, setSelectedValues] = useState([]);
@@ -172,7 +171,7 @@ export default function ViewGroup() {
         });
     }
 
-    const sendButton = (e) => {
+    const sendButton = async (e) => {
         e.preventDefault();
         const text = document.getElementById('textArea').value;
         if (selectTable === undefined || select.length === 0) {
@@ -180,18 +179,20 @@ export default function ViewGroup() {
                 position: toast.POSITION.BOTTOM_RIGHT
             });
         } else {
-            MessageService.addMessage(selectTable.map(x => x.idTelegram), text).then(() => {
-                document.getElementById('textArea').value = "";
-                toast.info("Росилка надіслана", {
-                    position: toast.POSITION.BOTTOM_RIGHT
-                })
-            }).catch(err => {
-                if (err.response.status === 401)
-                    setRedirectLoginPage(true);
+            for await (let item of selectTable) {
+                try {
+                    await TelegramService.sendMessage(item.idTelegram, text);
+                } catch (err) {
+                    return toast.error("Введите текст", {
+                        position: toast.POSITION.BOTTOM_RIGHT
+                    });
+                }
+            }
+            document.getElementById('textArea').value = "";
+            toast.info("Росилка надіслана", {
+                position: toast.POSITION.BOTTOM_RIGHT
             });
         }
-
-
     };
 
     if (flag) {
