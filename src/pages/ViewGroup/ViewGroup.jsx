@@ -171,7 +171,7 @@ export default function ViewGroup() {
         });
     }
 
-    const sendButton = async (e) => {
+    const sendButton =  (e) => {
         e.preventDefault();
         const text = document.getElementById('textArea').value;
         if (selectTable === undefined || select.length === 0) {
@@ -179,9 +179,9 @@ export default function ViewGroup() {
                 position: toast.POSITION.BOTTOM_RIGHT
             });
         } else {
-            for await (let item of selectTable) {
+            for  (let item of selectTable) {
                 // try {
-                    await TelegramService.sendMessage(item.idTelegram, text);
+                     TelegramService.sendMessage(item.idTelegram, text);
                 // } catch (err) {
                 //     return toast.error("Введите текст", {
                 //         position: toast.POSITION.BOTTOM_RIGHT

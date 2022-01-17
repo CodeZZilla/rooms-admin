@@ -56,7 +56,7 @@ export default function Users() {
         });
     };
 
-    const sendButton = async (e) => {
+    const sendButton =  (e) => {
         e.preventDefault();
         const text = document.getElementById('textArea').value;
 
@@ -66,9 +66,9 @@ export default function Users() {
             });
         } else {
 
-            for await (let item of select) {
+            for  (let item of select) {
                 // try {
-                    await TelegramService.sendMessage(item.idTelegram, text);
+                     TelegramService.sendMessage(item.idTelegram, text);
                 // } catch (err) {
                 //      return toast.error("Введите текст", {
                 //        position: toast.POSITION.BOTTOM_RIGHT
