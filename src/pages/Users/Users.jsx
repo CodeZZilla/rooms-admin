@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {BarWave} from "react-cssfx-loading";
 import ActionTable from "../../components/ActionTable/ActionTable";
 import UserService from "../../services/user.service";
@@ -6,14 +6,23 @@ import TelegramService from '../../services/telegram.service';
 import {toast, ToastContainer} from "react-toastify";
 import {injectStyle} from "react-toastify/dist/inject-style";
 import {Redirect} from "react-router-dom";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import ru from 'date-fns/locale/ru';
+import MessageService from "../../services/message.service";
 
 export default function Users() {
 
     const [isLoading, setIsLoading] = useState(true);
     const [dataUser, setDataUser] = useState([]);
     const [redirectLoginPage, setRedirectLoginPage] = useState(false);
-    // const [text, setText] = useState("");
-    let select;
+    const [date, setDate] = useState(new Date().getTime());
+    const [disabledDatePicker, setDisabledDatePicker] = useState(true);
+
+    const checkBox = useRef();
+
+    // let select;
+    const [select, setSelect] = useState(null);
 
     if (typeof window !== 'undefined') {
         injectStyle()
@@ -56,7 +65,7 @@ export default function Users() {
         });
     };
 
-    const sendButton =  (e) => {
+    const sendButton = (e) => {
         e.preventDefault();
         const text = document.getElementById('textArea').value;
 
@@ -65,26 +74,54 @@ export default function Users() {
                 position: toast.POSITION.BOTTOM_RIGHT
             });
         } else {
+            // console.log(checkBox.current.checked)
+            if (checkBox.current.checked) {
+                MessageService.addMessage(select.map(item => item.idTelegram), text, date).then(() => {
+                    document.getElementById('textArea').value = "";
+                    toast.info("Росилка надіслана", {
+                        position: toast.POSITION.BOTTOM_RIGHT
+                    });
+                });
 
-            for  (let item of select) {
-                // try {
-                     TelegramService.sendMessage(item.idTelegram, text);
-                // } catch (err) {
-                //      return toast.error("Введите текст", {
-                //        position: toast.POSITION.BOTTOM_RIGHT
-                //     });
-                // }
+            } else {
+
+                for (let item of select) {
+                    TelegramService.sendMessage(item.idTelegram, text).catch(err => {
+                        console.log("enter text")
+                        // if (err.response.status === 400) {
+                        //     toast.error("Введите текст", {
+                        //         position: toast.POSITION.BOTTOM_RIGHT
+                        //     });
+                        // }
+
+                    });
+
+                }
+                document.getElementById('textArea').value = "";
+                toast.info("Росилка надіслана", {
+                    position: toast.POSITION.BOTTOM_RIGHT
+                });
+
             }
-            document.getElementById('textArea').value = "";
-            toast.info("Росилка надіслана", {
-                position: toast.POSITION.BOTTOM_RIGHT
-            });
+
+
         }
     };
 
-    const selectionHandler = (selected) => {
-        select = selected;
+    const selectionHandler =  (selected) => {
+        // select = selected;
+        setSelect(selected);
+        // console.log(selected)
     };
+
+
+
+    const changeCheckBoxHandler = e => {
+        if (e.target.checked) {
+            setDisabledDatePicker(false);
+        } else
+            setDisabledDatePicker(true);
+    }
 
     if (redirectLoginPage)
         return <Redirect to="/login"/>
@@ -109,24 +146,21 @@ export default function Users() {
                                          editable={{
                                              onRowUpdate: (newData, oldData) => new Promise((resolve, reject) => {
 
-                                                     const dataUpdate = [...dataUser];
-                                                     const index = oldData.tableData.id;
-                                                     dataUpdate[index] = newData;
-                                                     UserService.getUserById(dataUpdate[index].id).then(response => {
-                                                        let user = response.data;
-                                                        user.idTelegram = dataUpdate[index].idTelegram;
-                                                        user.lastName = dataUpdate[index].surname;
-                                                        user.name = dataUpdate[index].name;
-                                                        user.daysOfSubscription = dataUpdate[index].lessDays;
+                                                 const dataUpdate = [...dataUser];
+                                                 const index = oldData.tableData.id;
+                                                 dataUpdate[index] = newData;
+                                                 UserService.getUserById(dataUpdate[index].id).then(response => {
+                                                     let user = response.data;
+                                                     user.idTelegram = dataUpdate[index].idTelegram;
+                                                     user.lastName = dataUpdate[index].surname;
+                                                     user.name = dataUpdate[index].name;
+                                                     user.daysOfSubscription = dataUpdate[index].lessDays;
 
-                                                        UserService.updateUserById(user.id, user).then(() => {
-                                                           setDataUser([...dataUpdate]);
-                                                        });
+                                                     UserService.updateUserById(user.id, user).then(() => {
+                                                         setDataUser([...dataUpdate]);
                                                      });
-
-
-                                                     resolve();
-
+                                                 });
+                                                 resolve();
                                              }),
                                          }}
                                          action={[
@@ -149,22 +183,7 @@ export default function Users() {
                                                          });
                                                      }
                                                  }
-                                             },
-                                             // rowData => ({
-                                             //     icon: "error",
-                                             //     tooltip: "",
-                                             //     onClick: (event, data) => {
-                                             //
-                                             //     }
-                                             // })
-
-                                             // {
-                                             //     tooltip: '',
-                                             //     icon: 'add',
-                                             //     onClick: (evt, value) => {
-                                             //         addHandlerButton(evt, value)
-                                             //     }
-                                             // }
+                                             }
                                          ]}/>
                         </div>
                     </div>
@@ -184,6 +203,23 @@ export default function Users() {
                                 </div>
                                 <br/>
                                 <button type="submit" className="btn btn-primary">Надіслати</button>
+                                <div className="form-check">
+                                    <div className="custom-control custom-checkbox">
+                                        <input type="checkbox" ref={checkBox} onChange={changeCheckBoxHandler}
+                                               className="form-check-input form-check-primary"
+                                               name="customCheck" id="customColorCheck1"/>
+                                        <label className="form-check-label"
+                                               htmlFor="customColorCheck1">Запланувати росилку</label>
+                                    </div>
+                                </div>
+                                <DatePicker showTimeInput
+                                            selected={date} locale={ru}
+                                            onChange={date => setDate(date.getTime())}
+                                            timeInputLabel="Time:"
+                                            timeFormat="p"
+                                            dateFormat="Pp"
+                                            disabled={disabledDatePicker}
+                                />
                             </div>
 
                         </div>

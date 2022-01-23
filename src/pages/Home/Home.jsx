@@ -64,7 +64,6 @@ function Home() {
     }
 
     useEffect(() => {
-
         UserService.getDateStatistic().then(response => {
             setDataStatistic(response.data);
         }).catch(error => {
