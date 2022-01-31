@@ -69,7 +69,7 @@ export default function Users() {
         e.preventDefault();
         const text = document.getElementById('textArea').value;
 
-        if (select === undefined || select.length === 0) {
+        if (!select) {
             toast.error('Виберіть юзерів', {
                 position: toast.POSITION.BOTTOM_RIGHT
             });
