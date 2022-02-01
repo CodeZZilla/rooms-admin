@@ -48,100 +48,104 @@ export default function ViewUser() {
         return <Redirect to="/login"/>
 
     return (
-       isLoading ? <BarWave className="loaderBar"/> : <div className="container bootdey flex-grow-1 container-p-y">
-
-            <div className="media align-items-center py-3 mb-3">
-                {/*<img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""*/}
-                {/*     className="d-block ui-w-100 rounded-circle"/>*/}
-                <img src={photo} alt=""
-                     className="d-block ui-w-100 rounded-circle"/>
-                <div className="media-body ml-4">
-                    <h4 className="font-weight-bold mb-0">{user.name} {user.lastName} <span
-                        className="text-muted font-weight-normal">@{user.nickname}</span></h4>
-                    <div className="text-muted mb-2">ID TELEGRAM: {user.idTelegram}</div>
+       isLoading ? <BarWave className="loaderBar"/> : <div >
+            <div className="page-heading">
+                <div className="media align-items-center py-3 mb-3">
+                    {/*<img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""*/}
+                    {/*     className="d-block ui-w-100 rounded-circle"/>*/}
+                    <img src={photo} alt=""
+                         className="d-block ui-w-100 rounded-circle"/>
+                    <div className="media-body ml-4">
+                        <h4 className="font-weight-bold mb-0">{user.name} {user.lastName} <span
+                            className="text-muted font-weight-normal">@{user.nickname}</span></h4>
+                        <div className="text-muted mb-2">ID TELEGRAM: {user.idTelegram}</div>
+                    </div>
                 </div>
             </div>
+           <div className="page-content">
+               <div className="card mb-4">
+                   <div className="row no-gutters row-bordered">
+                       <div className="d-flex col-md align-items-center">
+                           <a href="javascript:void(0)" className="card-body d-block text-body">
+                               <div className="text-muted small line-height-1">К-сть отриманих оголошень</div>
+                               <div className="text-xlarge">{user.todayCompilation === undefined ? 0 : user.todayCompilation.length}</div>
+                           </a>
+                       </div>
+                       <div className="d-flex col-md align-items-center">
+                           <a href="javascript:void(0)" className="card-body d-block text-body">
+                               <div className="text-muted small line-height-1">Днів до кінця підписки</div>
+                               <div className="text-xlarge">{user.daysOfSubscription}</div>
+                           </a>
+                       </div>
+                       <div className="d-flex col-md align-items-center">
+                           <a href="javascript:void(0)" className="card-body d-block text-body">
+                               <div className="text-muted small line-height-1">Безкоштовний пошук</div>
+                               <div className="text-xlarge">{user.freeCounterSearch}</div>
+                           </a>
+                       </div>
+                   </div>
+                   <hr className="border-light m-0"/>
+                   <div className="card-body">
+                       <table className="table user-view-table m-0">
+                           <tbody>
+                           <tr>
+                               <td>Регестрація:</td>
+                               <td>{dateString}</td>
+                           </tr>
+                           {/*<tr>*/}
+                           {/*    <td>Latest activity:</td>*/}
+                           {/*    <td>01/23/2018 (14 days ago)</td>*/}
+                           {/*</tr>*/}
+                           <tr>
+                               <td>Етап:</td>
+                               <td>{user.userStatus}</td>
+                           </tr>
+                           <tr>
+                               <td>Мова:</td>
+                               <td>{user.language}</td>
+                           </tr>
+                           </tbody>
+                       </table>
+                   </div>
+                   <hr className="border-light m-0"/>
+                   <div className="table-responsive">
+                       <table className="table card-table m-0">
+                           <tbody>
+                           <tr>
+                               <th>Параметри</th>
+                               <th>Значення</th>
+                           </tr>
+                           <tr>
+                               <td>Тип</td>
+                               <td>{user.type}</td>
+                           </tr>
+                           <tr>
+                               <td>Місто</td>
+                               <td>{user.city}</td>
+                           </tr>
+                           <tr>
+                               <td>К-сть кімнат</td>
+                               <td>{user.rooms === undefined || user.rooms === null ? '' : user.rooms.map(value => `[${value}]`)}</td>
+                           </tr>
+                           <tr>
+                               <td>Діапазон цін</td>
+                               <td>{user.priceMin}-{user.priceMax}</td>
+                           </tr>
+                           <tr>
+                               <td>Регіони</td>
+                               <td>{user.region === undefined || user.region === null ? '' : user.region.map(value => `[${value}] `)}</td>
+                           </tr>
+                           <tr>
+                               <td>Метро</td>
+                               <td>{user.metroNames === undefined || user.metroNames === null ? '' : user.metroNames.map(value => `[${value}] `)}</td>
+                           </tr>
+                           </tbody>
+                       </table>
+                   </div>
+               </div>
+           </div>
 
-            <div className="card mb-4">
-                <div className="row no-gutters row-bordered">
-                    <div className="d-flex col-md align-items-center">
-                        <a href="javascript:void(0)" className="card-body d-block text-body">
-                            <div className="text-muted small line-height-1">К-сть отриманих оголошень</div>
-                            <div className="text-xlarge">{user.todayCompilation === undefined ? 0 : user.todayCompilation.length}</div>
-                        </a>
-                    </div>
-                    <div className="d-flex col-md align-items-center">
-                        <a href="javascript:void(0)" className="card-body d-block text-body">
-                            <div className="text-muted small line-height-1">Днів до кінця підписки</div>
-                            <div className="text-xlarge">{user.daysOfSubscription}</div>
-                        </a>
-                    </div>
-                    <div className="d-flex col-md align-items-center">
-                        <a href="javascript:void(0)" className="card-body d-block text-body">
-                            <div className="text-muted small line-height-1">Безкоштовний пошук</div>
-                            <div className="text-xlarge">{user.freeCounterSearch}</div>
-                        </a>
-                    </div>
-                </div>
-                <hr className="border-light m-0"/>
-                <div className="card-body">
-                    <table className="table user-view-table m-0">
-                        <tbody>
-                        <tr>
-                            <td>Регестрація:</td>
-                            <td>{dateString}</td>
-                        </tr>
-                        {/*<tr>*/}
-                        {/*    <td>Latest activity:</td>*/}
-                        {/*    <td>01/23/2018 (14 days ago)</td>*/}
-                        {/*</tr>*/}
-                        <tr>
-                            <td>Етап:</td>
-                            <td>{user.userStatus}</td>
-                        </tr>
-                        <tr>
-                            <td>Мова:</td>
-                            <td>{user.language}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <hr className="border-light m-0"/>
-                <div className="table-responsive">
-                    <table className="table card-table m-0">
-                        <tbody>
-                        <tr>
-                            <th>Параметри</th>
-                            <th>Значення</th>
-                        </tr>
-                        <tr>
-                            <td>Тип</td>
-                            <td>{user.type}</td>
-                        </tr>
-                        <tr>
-                            <td>Місто</td>
-                            <td>{user.city}</td>
-                        </tr>
-                        <tr>
-                            <td>К-сть кімнат</td>
-                            <td>{user.rooms === undefined || user.rooms === null ? '' : user.rooms.map(value => `[${value}]`)}</td>
-                        </tr>
-                        <tr>
-                            <td>Діапазон цін</td>
-                            <td>{user.priceMin}-{user.priceMax}</td>
-                        </tr>
-                        <tr>
-                            <td>Регіони</td>
-                            <td>{user.region === undefined || user.region === null ? '' : user.region.map(value => `[${value}] `)}</td>
-                        </tr>
-                        <tr>
-                            <td>Метро</td>
-                            <td>{user.metroNames === undefined || user.metroNames === null ? '' : user.metroNames.map(value => `[${value}] `)}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+
 
             {/*<div className="card">*/}
 

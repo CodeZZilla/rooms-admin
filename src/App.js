@@ -8,7 +8,7 @@ import ViewGroup from "./pages/ViewGroup/ViewGroup";
 import Kanban from "./pages/Kanban/Kanban";
 import Login from "./pages/Login/Login";
 import AuthComponent from "./components/AuthComponent/AuthComponent";
-import Container from "./hoc/container/Container";
+import Header from "./components/Header";
 import News from "./pages/News/News";
 import AddNews from "./pages/AddNews/AddNews";
 import EditNews from "./pages/EditNews/EditNews";
@@ -22,7 +22,7 @@ function App() {
             <Switch>
                 <Route exact path='/login' component={Login}/>
                 <AuthComponent>
-                    <Container>
+                    <Header>
                         <Route exact path="/" component={Home}/>
                         <Route path="/users" component={Users}/>
                         <Route exact path="/groups" component={Groups}/>
@@ -35,7 +35,7 @@ function App() {
                         <Route path="/editNews/:id" component={EditNews}/>
                         {/*<Route path="/chat" component={Chat}/>*/}
 
-                    </Container>
+                    </Header>
                 </AuthComponent>
             </Switch>
         </Router>

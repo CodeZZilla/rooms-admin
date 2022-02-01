@@ -50,50 +50,53 @@ export default function AddGroup() {
         return <Redirect to="/login"/>
 
     return (
-           isLoading ? <BarWave className="loaderBar"/> : <section id="basic-horizontal-layouts">
-                <div className="row match-height">
-                    <div className="col-md-12 col-12">
-                        <div className="card">
-                            <div className="card-header">
-                                <h4 className="card-title">Створення групи</h4>
-                            </div>
-                            <div className="card-content">
-                                <div className="card-body">
-                                    <form className="form form-horizontal">
-                                        <div className="form-body">
-                                            <div className="row">
-                                                <div className="col-md-4">
-                                                    <label>Назва групи</label>
-                                                </div>
-                                                <div className="col-md-8 form-group">
-                                                    <input type="text" id="first-name" className="form-control"
-                                                           name="fname" placeholder="Назва групи"/>
-                                                </div>
-                                                <div className="col-md-4">
-                                                    <label>Користувачі</label>
-                                                </div>
-                                                <div className="col-md-8 form-group">
-                                                    <Select options={options} isMulti onChange={e => {
-                                                        let selected = [];
-                                                        e.map(x => selected.push(x.value))
-                                                        selectedValues = selected;
-                                                    }}/>
-                                                </div>
+           isLoading ? <BarWave className="loaderBar"/> : <div>
+               <div className="page-content">
+                   <div className="row match-height">
+                       <div className="col-md-12 col-12">
+                           <div className="card">
+                               <div className="card-header">
+                                   <h4 className="card-title">Створення групи</h4>
+                               </div>
+                               <div className="card-content">
+                                   <div className="card-body">
+                                       <form className="form form-horizontal">
+                                           <div className="form-body">
+                                               <div className="row">
+                                                   <div className="col-md-4">
+                                                       <label>Назва групи</label>
+                                                   </div>
+                                                   <div className="col-md-8 form-group">
+                                                       <input type="text" id="first-name" className="form-control"
+                                                              name="fname" placeholder="Назва групи"/>
+                                                   </div>
+                                                   <div className="col-md-4">
+                                                       <label>Користувачі</label>
+                                                   </div>
+                                                   <div className="col-md-8 form-group">
+                                                       <Select options={options} isMulti onChange={e => {
+                                                           let selected = [];
+                                                           e.map(x => selected.push(x.value))
+                                                           selectedValues = selected;
+                                                       }}/>
+                                                   </div>
 
-                                                <div className="col-sm-12 d-flex justify-content-end">
-                                                    <button type="submit"
-                                                            className="btn btn-primary me-1 mb-1"
-                                                            onClick={handlerClick}>Зберегти
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+                                                   <div className="col-sm-12 d-flex justify-content-end">
+                                                       <button type="submit"
+                                                               className="btn btn-primary me-1 mb-1"
+                                                               onClick={handlerClick}>Зберегти
+                                                       </button>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </form>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+
+            </div>
     )
 }
